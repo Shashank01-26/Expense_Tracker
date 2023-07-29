@@ -28,18 +28,70 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      builder: (ctx)=> const NewExpense() ,
-      
+      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
+    );
+  }
+
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 2),
+        content: const Text(
+          "Expense Removed",
+        ),
+        action: SnackBarAction(
+          label: "Undo",
+          textColor: const Color.fromARGB(255, 14, 129, 223),
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 23.0, vertical: 23.0),
+        decoration: BoxDecoration(
+          color: Colors.purpleAccent,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: const Text(
+          "No expenses found. Start adding some to get your expenses tracked",
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+          expenses: _registeredExpenses, onRemoveExpense: _removeExpense);
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expense Tracker'),
-        backgroundColor: Color.fromARGB(147, 169, 77, 200),
+        title: Text('Expense Tracker'),        
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -51,7 +103,7 @@ class _ExpensesState extends State<Expenses> {
         children: [
           const Text('The Chart'),
           Expanded(
-            child: ExpensesList(expenses: _registeredExpenses),
+            child: mainContent,
           ),
         ],
       ),
