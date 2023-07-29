@@ -68,17 +68,21 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     Widget mainContent = Center(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 23.0, vertical: 23.0),
-        decoration: BoxDecoration(
-          color: Colors.purpleAccent,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: const Text(
-          "No expenses found. Start adding some to get your expenses tracked",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 23.0, vertical: 23.0),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.onSecondaryContainer,          
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: const Text(
+            "No expenses found. Start adding some to get your expenses tracked",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+            ),
           ),
         ),
       ),
