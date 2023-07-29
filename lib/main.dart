@@ -30,8 +30,13 @@ void main() {
           ),
         ),
         textTheme: ThemeData().textTheme.copyWith(
-          titleLarge: ,
-        ),
+                titleLarge: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: kColorScheme.onSecondary,
+                fontSize: 21,
+                
+              ),
+            ),
       ),
       debugShowCheckedModeBanner: false,
       home: const Expenses(),
