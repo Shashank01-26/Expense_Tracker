@@ -60,7 +60,7 @@ void main() {
               ),
             ),
       ),
-      // themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: const Expenses(),
     ),
