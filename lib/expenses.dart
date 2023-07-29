@@ -77,7 +77,7 @@ class _ExpensesState extends State<Expenses> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 23.0, vertical: 23.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSecondaryContainer,
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
             borderRadius: BorderRadius.circular(30),
           ),
           child: const Text(
